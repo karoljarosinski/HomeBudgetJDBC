@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class TransactionDao {
     private final Connection connection;
@@ -12,7 +13,7 @@ public class TransactionDao {
         }
     }
 
-    void close() {
+    public void close() {
         try {
             connection.close();
         } catch (SQLException e) {
@@ -60,9 +61,10 @@ public class TransactionDao {
         }
     }
 
-    public void displayAllIncomes() {
+    public ArrayList<Transaction> displayAllIncomes() {
+        ArrayList<Transaction> transactions = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM homebudget.transaction WHERE type = 'przychód'";
+            String sql = "SELECT id, type, description, amount, date FROM homebudget.transaction WHERE type = 'przychód'";
             preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -71,17 +73,18 @@ public class TransactionDao {
                 String description = resultSet.getString("description");
                 double amount = resultSet.getDouble("amount");
                 Date date = resultSet.getDate("date");
-                Transaction transaction = new Transaction(id, TransactionType.INCOME, description, amount, date.toLocalDate());
-                System.out.println(transaction);
+                transactions.add(new Transaction(id, TransactionType.INCOME, description, amount, date.toLocalDate()));
             }
         } catch (SQLException e) {
             System.out.println("Niepowodzenie podczas zapisu do bazy danych: " + e.getMessage());
         }
+        return transactions;
     }
 
-    public void displayAllExpenses() {
+    public ArrayList<Transaction> displayAllExpenses() {
+        ArrayList<Transaction> transactions = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM homebudget.transaction WHERE type = 'wydatek'";
+            String sql = "SELECT id, type, description, amount, date FROM homebudget.transaction WHERE type = 'wydatek'";
             preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -90,24 +93,25 @@ public class TransactionDao {
                 String description = resultSet.getString("description");
                 double amount = resultSet.getDouble("amount");
                 Date date = resultSet.getDate("date");
-                Transaction transaction = new Transaction(id, TransactionType.EXPENSE, description, amount, date.toLocalDate());
-                System.out.println(transaction);
+                transactions.add(new Transaction(id, TransactionType.EXPENSE, description, amount, date.toLocalDate()));
             }
         } catch (SQLException e) {
             System.out.println("Niepowodzenie podczas zapisu do bazy danych: " + e.getMessage());
         }
+        return transactions;
     }
 
-    public void summary() {
+    public int summary() {
         try {
             String sql = "SELECT sum(amount) FROM homebudget.transaction";
             preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                System.out.println("Obecny stan budzetu: " + resultSet.getInt(1));
+                return resultSet.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return 0;
     }
 }

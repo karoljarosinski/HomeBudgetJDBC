@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class TransactionAdd {
 
-    public static Transaction addTransaction() {
+    public static Transaction inputTransactionInfo() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Podaj opis transakcji: ");

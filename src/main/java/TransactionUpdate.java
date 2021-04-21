@@ -6,6 +6,6 @@ public class TransactionUpdate {
 
         System.out.println("Podaj id transakcji która chcesz zaktualizować");
         int id = Integer.parseInt(scanner.nextLine());
-        return new Transaction(id, TransactionAdd.addTransaction());
+        return new Transaction(id, TransactionAdd.inputTransactionInfo());
     }
 }

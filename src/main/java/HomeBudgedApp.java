@@ -13,7 +13,7 @@ public class HomeBudgedApp {
 
             switch (userInput) {
                 case "1":
-                    transaction = TransactionAdd.addTransaction();
+                    transaction = TransactionAdd.inputTransactionInfo();
                     dao.add(transaction);
                     break;
                 case "2":
@@ -24,13 +24,19 @@ public class HomeBudgedApp {
                     dao.delete(TransactionDelete.deleteTransaction());
                     break;
                 case "4":
-                    dao.displayAllIncomes();
+//                    System.out.println(dao.displayAllIncomes());
+                    for (Transaction displayAllIncome : dao.displayAllIncomes()) {
+                        System.out.println(displayAllIncome);
+                    }
                     break;
                 case "5":
-                    dao.displayAllExpenses();
+//                    System.out.println(dao.displayAllExpenses());
+                    for (Transaction displayAllExpens : dao.displayAllExpenses()) {
+                        System.out.println(displayAllExpens);
+                    }
                     break;
                 case "6":
-                    dao.summary();
+                    System.out.println("Obecny stan portfela: " + dao.summary());
                     break;
                 case "7":
                     dao.close();
