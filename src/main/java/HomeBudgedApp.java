@@ -24,15 +24,13 @@ public class HomeBudgedApp {
                     dao.delete(TransactionDelete.deleteTransaction());
                     break;
                 case "4":
-//                    System.out.println(dao.displayAllIncomes());
-                    for (Transaction displayAllIncome : dao.displayAllIncomes()) {
-                        System.out.println(displayAllIncome);
+                    for (Transaction transaction : dao.getAllIncomes()) {
+                        System.out.println(transaction);
                     }
                     break;
                 case "5":
-//                    System.out.println(dao.displayAllExpenses());
-                    for (Transaction displayAllExpens : dao.displayAllExpenses()) {
-                        System.out.println(displayAllExpens);
+                    for (Transaction transaction : dao.getAllExpenses()) {
+                        System.out.println(transaction);
                     }
                     break;
                 case "6":

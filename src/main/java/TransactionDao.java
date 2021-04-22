@@ -61,7 +61,7 @@ public class TransactionDao {
         }
     }
 
-    public ArrayList<Transaction> displayAllIncomes() {
+    public ArrayList<Transaction> getAllIncomes() {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try {
             String sql = "SELECT id, type, description, amount, date FROM homebudget.transaction WHERE type = 'przychód'";
@@ -81,7 +81,7 @@ public class TransactionDao {
         return transactions;
     }
 
-    public ArrayList<Transaction> displayAllExpenses() {
+    public ArrayList<Transaction> getAllExpenses() {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try {
             String sql = "SELECT id, type, description, amount, date FROM homebudget.transaction WHERE type = 'wydatek'";
